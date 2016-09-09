@@ -1,0 +1,25 @@
+{
+  "name": "ionic-generators",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build" : "node ./build/build.js"
+  },
+  "author": "Ionic Team <dan.b@ionic.io> (http://ionic.io)",
+  "license": "MIT",
+  "devDependencies": {
+    "@danbucholtz/rollup-commonjs-unambiguous-fork": "0.0.2",
+    "@types/lodash": "4.14.34",
+    "@types/node": "6.0.38",
+    "colors": "1.1.2",
+    "del": "2.2.2",
+    "lodash-es": "4.15.0",
+    "mkdirp-no-bin": "0.5.1",
+    "rollup": "0.34.13",
+    "rollup-plugin-node-resolve": "2.0.0",
+    "typescript": "2.0.2",
+    "vinyl-fs": "2.4.3"
+  }
+}

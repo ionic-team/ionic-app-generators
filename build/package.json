@@ -1,0 +1,14 @@
+{
+  "name": "@ionic/app-generators",
+  "version": "0.0.1",
+  "description": "easily generate components, pages, directives, etc.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ionic"
+  ],
+  "author": "Ionic Team <hi@ionic.io> (http://ionic.io)",
+  "license": "MIT"
+}
