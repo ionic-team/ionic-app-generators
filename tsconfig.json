@@ -11,7 +11,7 @@
     "outDir": "./dist/compiled",
     "removeComments": true,
     "target": "es5",
-    "types": ["node"]
+    "types": ["jasmine", "node"]
   },
   "include": [
     "./src/**/*.ts"

@@ -10,10 +10,14 @@ function deleteCompiled() {
   del.sync('dist/compiled');
 }
 
-function runTsc() {
+function runTsc(testBuild) {
   return new Promise(function(resolve, reject) {
     var exec = require('child_process').exec;
-    exec('./node_modules/.bin/tsc -p .', function(err, stdout, stderr) {
+    var command = './node_modules/.bin/tsc -p .';
+    if (testBuild) {
+      command = command + ' --module commonjs'
+    }
+    exec(command, function(err, stdout, stderr) {
       if (err) {
         reject(err);
       } else {
@@ -86,20 +90,24 @@ function copyPackageJsonTemplate() {
   return copyFiles('./build/package.json', './dist/ionic-generators');
 }
 
-function doBuild() {
+function doBuild(isTestBuild) {
   clean()
-  runTsc().then( function() {
+  runTsc(isTestBuild).then( function() {
     return bundle();
   }).then(function() {
     return copyTemplates();
   }).then(function() {
     return copyPackageJsonTemplate();
   }).then(function() {
-    return deleteCompiled();
+    if (!isTestBuild) {
+      return deleteCompiled();
+    }
   }).catch(function(err){
     console.log("ERROR: ", err.message);
     process.exit(1);
   });
 }
 
-doBuild();
+var isTestBuild = process.argv.length > 2 && process.argv[2] === '--test';
+
+doBuild(isTestBuild);
