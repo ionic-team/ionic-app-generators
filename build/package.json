@@ -1,6 +1,6 @@
 {
   "name": "@ionic/app-generators",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "easily generate components, pages, directives, etc.",
   "main": "index.js",
   "scripts": {

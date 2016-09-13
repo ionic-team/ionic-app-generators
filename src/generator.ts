@@ -23,14 +23,16 @@ export class Generator {
     this.tabVariables = '';
   }
 
-  generate() {
-    const pathsObj = getPathsBasedOnGeneratorType(this.options.generatorType, this.fileName, this.projectStructureOptions);
+  generate(): Promise<any>{
+    let pathsObj;
+    try{
+      pathsObj = getPathsBasedOnGeneratorType(this.options.generatorType, this.fileName, this.projectStructureOptions);
+    } catch (ex) {
+      return Promise.reject(ex);
+    }
+
     return makeDirectoryIfNeeded(pathsObj.outputDir).then( () => {
       return this.renderAndWriteTemplates(pathsObj.sourceTemplateDir, pathsObj.outputDir);
-    }).catch( err => {
-      console.log("ERROR: An unexpected error occurred");
-      console.log(err.msg);
-      process.exit(1);
     });
   }
 

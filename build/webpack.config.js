@@ -16,6 +16,7 @@ module.exports = {
   target: 'node',
   output: {
     path: './dist/ionic-generators',
-    filename: 'index.js'
+    filename: 'index.js',
+    libraryTarget: 'commonjs2'
   }
 }

@@ -16,10 +16,14 @@ export function printAvailableGenerators() {
   console.log((' *' as any).blue, 'Provider');
 }
 
-export function generate(options: GeneratorOptions, projectStructureOptions: ProjectStructureOptions) {
-  validateOptions(options, projectStructureOptions);
+export function generate(options: GeneratorOptions, projectStructureOptions: ProjectStructureOptions): Promise<any>{
+  const error = validateOptions(options, projectStructureOptions);
+  if (error) {
+    return Promise.reject(error);
+  }
+
   const generator = getGenerator(options, projectStructureOptions);
-  generator.generate();
+  return generator.generate();
 }
 
 function getGenerator(options: GeneratorOptions, projectStructureOptions: ProjectStructureOptions) {
@@ -31,42 +35,42 @@ function getGenerator(options: GeneratorOptions, projectStructureOptions: Projec
 
 function validateOptions(options: GeneratorOptions, projectStructureOptions: ProjectStructureOptions) {
   if (!options) {
-    throw new Error('No options passed to generator');
+    return new Error('No options passed to generator');
   }
 
   if (!options.generatorType || options.generatorType.length === 0) {
-    throw new Error('No generator type passed');
+    return new Error('No generator type passed');
   }
 
   if (!options.suppliedName || options.suppliedName.length === 0) {
-    throw new Error('No supplied name provided');
+    return new Error('No supplied name provided');
   }
 
   if (!projectStructureOptions) {
-    throw new Error('No projectStructureOptions passed to generator');
+    return new Error('No projectStructureOptions passed to generator');
   }
 
   if (!projectStructureOptions.absolutePathTemplateBaseDir || projectStructureOptions.absolutePathTemplateBaseDir.length === 0) {
-    throw new Error('projectStructureOptions.absolutePathTemplateBaseDir is a required field');
+    return new Error('projectStructureOptions.absolutePathTemplateBaseDir is a required field');
   }
 
   if (!projectStructureOptions.absoluteComponentDirPath || projectStructureOptions.absoluteComponentDirPath.length === 0) {
-    throw new Error('projectStructureOptions.absoluteComponentDirPath is a required field');
+    return new Error('projectStructureOptions.absoluteComponentDirPath is a required field');
   }
 
   if (!projectStructureOptions.absoluteDirectiveDirPath || projectStructureOptions.absoluteDirectiveDirPath.length === 0) {
-    throw new Error('projectStructureOptions.absoluteDirectiveDirPath is a required field');
+    return new Error('projectStructureOptions.absoluteDirectiveDirPath is a required field');
   }
 
   if (!projectStructureOptions.absolutePagesDirPath || projectStructureOptions.absolutePagesDirPath.length === 0) {
-    throw new Error('projectStructureOptions.absolutePagesDirPath is a required field');
+    return new Error('projectStructureOptions.absolutePagesDirPath is a required field');
   }
 
   if (!projectStructureOptions.absolutePipeDirPath || projectStructureOptions.absolutePipeDirPath.length === 0) {
-    throw new Error('projectStructureOptions.absolutePipeDirPath is a required field');
+    return new Error('projectStructureOptions.absolutePipeDirPath is a required field');
   }
 
   if (!projectStructureOptions.absoluteProviderDirPath || projectStructureOptions.absoluteProviderDirPath.length === 0) {
-    throw new Error('projectStructureOptions.absoluteProviderDirPath is a required field');
+    return new Error('projectStructureOptions.absoluteProviderDirPath is a required field');
   }
 }
