@@ -19,6 +19,8 @@ function runTsc(testBuild) {
     }
     exec(command, function(err, stdout, stderr) {
       if (err) {
+        console.log(stdout);
+        console.log(stderr);
         reject(err);
       } else {
         resolve();
@@ -38,13 +40,15 @@ function customResolver() {
 }
 
 function bundle() {
-  var rollup = require('rollup');
+
+  /*var rollup = require('rollup');
   var nodeResolve = require('rollup-plugin-node-resolve');
   var commonjs = require('@danbucholtz/rollup-commonjs-unambiguous-fork');
 
   return rollup.rollup({
         entry: './dist/compiled/index.js',
         sourceMap: true,
+        useStrict: false,
         plugins: [
           customResolver(),
           nodeResolve({
@@ -57,18 +61,36 @@ function bundle() {
     }).then((bundle) => {
         return bundle.write({
             format: 'cjs',
+            useStrict: false,
             dest: './dist/ionic-generators/index.js'
         });
     });
+    */
+    return new Promise(function(resolve, reject) {
+      var webpack = require('webpack');
+      var config = require('./webpack.config');
+      var compiler = webpack(config);
+      compiler.run(function(err, stats) {
+        if (err) {
+            reject(err);
+            return;
+        }
+        resolve();
+      });
+    });
 }
 
-function copyTemplates() {
+function copyTemplates(isTestBuild) {
+  var destinationBase = './dist/ionic-generators';
+  if (isTestBuild) {
+    destinationBase = './dist/compiled';
+  }
   var promises = [];
-  promises.push(copyFiles('./src/component/*', './dist/ionic-generators/component'));
-  promises.push(copyFiles('./src/directive/*', './dist/ionic-generators/directive'));
-  promises.push(copyFiles('./src/page/*', './dist/ionic-generators/page'));
-  promises.push(copyFiles('./src/pipe/*', './dist/ionic-generators/pipe'));
-  promises.push(copyFiles('./src/provider/*', './dist/ionic-generators/provider'));
+  promises.push(copyFiles('./src/component/*', destinationBase + '/component'));
+  promises.push(copyFiles('./src/directive/*', destinationBase + '/directive'));
+  promises.push(copyFiles('./src/page/*', destinationBase + '/page'));
+  promises.push(copyFiles('./src/pipe/*', destinationBase + '/pipe'));
+  promises.push(copyFiles('./src/provider/*', destinationBase + '/provider'));
 
   return Promise.all(promises);
 }
@@ -95,7 +117,7 @@ function doBuild(isTestBuild) {
   runTsc(isTestBuild).then( function() {
     return bundle();
   }).then(function() {
-    return copyTemplates();
+    return copyTemplates(isTestBuild);
   }).then(function() {
     return copyPackageJsonTemplate();
   }).then(function() {

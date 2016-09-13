@@ -2,7 +2,9 @@ import * as colors from 'colors';
 
 import { Generator } from './generator';
 import { GeneratorOptions } from './generator-options';
-import { ProjectStructureOptions } from "./project-structure-options";
+import { ProjectStructureOptions } from './project-structure-options';
+import { TabGenerator } from './tab-generator';
+import { TABS_TYPE } from './utils';
 
 
 export function printAvailableGenerators() {
@@ -16,8 +18,15 @@ export function printAvailableGenerators() {
 
 export function generate(options: GeneratorOptions, projectStructureOptions: ProjectStructureOptions) {
   validateOptions(options, projectStructureOptions);
-  const generator = new Generator(options, projectStructureOptions);
+  const generator = getGenerator(options, projectStructureOptions);
   generator.generate();
+}
+
+function getGenerator(options: GeneratorOptions, projectStructureOptions: ProjectStructureOptions) {
+  if (options.generatorType === TABS_TYPE) {
+    return new TabGenerator(options, projectStructureOptions);
+  }
+  return new Generator(options, projectStructureOptions);
 }
 
 function validateOptions(options: GeneratorOptions, projectStructureOptions: ProjectStructureOptions) {
@@ -35,6 +44,10 @@ function validateOptions(options: GeneratorOptions, projectStructureOptions: Pro
 
   if (!projectStructureOptions) {
     throw new Error('No projectStructureOptions passed to generator');
+  }
+
+  if (!projectStructureOptions.absolutePathTemplateBaseDir || projectStructureOptions.absolutePathTemplateBaseDir.length === 0) {
+    throw new Error('projectStructureOptions.absolutePathTemplateBaseDir is a required field');
   }
 
   if (!projectStructureOptions.absoluteComponentDirPath || projectStructureOptions.absoluteComponentDirPath.length === 0) {

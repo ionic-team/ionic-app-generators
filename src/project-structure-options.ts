@@ -4,4 +4,5 @@ export interface ProjectStructureOptions {
   absolutePagesDirPath: string;
   absolutePipeDirPath: string;
   absoluteProviderDirPath: string;
+  absolutePathTemplateBaseDir: string;
 }

@@ -1,2 +1,3 @@
 declare module 'colors';
-declare module 'mkdirp-no-bin';
+declare module 'param-case';
+declare module 'inquirer';

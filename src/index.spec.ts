@@ -1,4 +1,5 @@
 import * as proxyquire from 'proxyquire';
+proxyquire.noCallThru();
 
 let mockGeneratorInstance;
 let mockGeneratorImport;
@@ -7,7 +8,6 @@ function getTestSubject() {
   let testSubject = proxyquire('./index', {
     './generator': mockGeneratorImport
   });
-  console.dir(testSubject);
   return testSubject;
 }
 
@@ -30,14 +30,14 @@ function getProjectStructureOptions() {
   }
 }
 
-describe('Index', () => {
+describe('index', () => {
   beforeEach(() => {
     mockGeneratorInstance = {
       generate: () => {}
     };
 
     mockGeneratorImport = {
-      taco: () => {
+      Generator: () => {
         return mockGeneratorInstance;
       }
     }
@@ -199,13 +199,16 @@ describe('Index', () => {
       let testSubject = getTestSubject();
       let options = getGeneratorOptions();
       let pso = getProjectStructureOptions();
-      spyOn(mockGeneratorImport, 'Generator');
+      spyOn(mockGeneratorImport, 'Generator').and.callThrough();
+      spyOn(mockGeneratorInstance, 'generate').and.callThrough();
 
       // act
       testSubject.generate(options, pso);
 
       // assert
-      expect(mockGeneratorImport.Generator).toHaveBeenCalled();
+
+      expect(mockGeneratorImport.Generator).toHaveBeenCalledWith(options, pso);
+      expect(mockGeneratorInstance.generate).toHaveBeenCalled();
     });
   });
 });
