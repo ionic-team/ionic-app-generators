@@ -14,6 +14,7 @@ export function printAvailableGenerators() {
   console.log((' *' as any).blue, 'Page');
   console.log((' *' as any).blue, 'Pipe');
   console.log((' *' as any).blue, 'Provider');
+  console.log((' *' as any).blue, 'Tabs');
 }
 
 export function generate(options: GeneratorOptions, projectStructureOptions: ProjectStructureOptions): Promise<any>{

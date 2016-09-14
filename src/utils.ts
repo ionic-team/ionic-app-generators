@@ -3,6 +3,7 @@ import { basename, extname, join } from 'path';
 
 import * as paramCase from 'param-case';
 
+import { GeneratorOptions } from './generator-options';
 import { ProjectStructureOptions } from './project-structure-options';
 
 export function getPathsBasedOnGeneratorType(generatorType: string, fileName: String, projectStructureOptions: ProjectStructureOptions) {
@@ -99,11 +100,11 @@ export function makeDirectoryIfNeeded(absolutePath: string): Promise<any> {
   });
 }
 
-export function getTemplatesInDir(templateDirectoryPath) {
+export function getTemplatesInDir(templateDirectoryPath: string) {
   return fs.readdirSync(templateDirectoryPath);
 }
 
-export function filterAndCleanUpTemplates(templates, templateDirectoryPath) {
+export function filterAndCleanUpTemplates(templates: string[], templateDirectoryPath: string, options: GeneratorOptions) {
   // filter the templates out
   const filteredTemplates = templates.filter( filePath => {
     // make sure it's a valid template file
@@ -112,13 +113,13 @@ export function filterAndCleanUpTemplates(templates, templateDirectoryPath) {
     return `${templateDirectoryPath}/${fileName}`
   }).filter(filePath => {
     // filter out sass if the option is passed to do so
-    if ( filePath.includes('.scss') && !this.options.includeSass) {
+    if ( filePath.includes('scss.tmpl') && ! options.includeSass) {
       return false;
     }
     return true;
   }).filter(filePath => {
     // filter out spec if the option is passed to do so
-    if ( filePath.includes('.spec') && !this.options.includeSpec) {
+    if (filePath.includes('spec.ts.tmpl') && ! options.includeSpec) {
       return false;
     }
     return true;

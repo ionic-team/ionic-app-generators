@@ -38,7 +38,7 @@ export class Generator {
 
   renderAndWriteTemplates(templateSourceDir: string, destinationDir: string) {
     const allTemplates = getTemplatesInDir(templateSourceDir);
-    const filteredTemplatePaths = filterAndCleanUpTemplates(allTemplates, templateSourceDir);
+    const filteredTemplatePaths = filterAndCleanUpTemplates(allTemplates, templateSourceDir, this.options);
     filteredTemplatePaths.forEach(templatePath => {
       const templateContent = readFileSync(templatePath).toString();
       const renderedTemplate = renderTemplate(templateContent, this.suppliedName, this.fileName, this.className, this.tabContent, this.tabImports, this.tabVariables);

@@ -30,6 +30,7 @@
     "rollup": "0.35.9",
     "rollup-plugin-node-resolve": "2.0.0",
     "typescript": "2.0.2",
-    "vinyl-fs": "2.4.3"
+    "vinyl-fs": "2.4.3",
+    "webpack": "^2.1.0-beta.22"
   }
 }
