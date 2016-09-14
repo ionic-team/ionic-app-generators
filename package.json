@@ -10,10 +10,9 @@
     "e2e": "node ./build/build.js --test && node ./dist/compiled/e2e.js",
     "e2e-tabs": "node ./build/build.js --test && node ./dist/compiled/e2e-tabs.js"
   },
-  "author": "Ionic Team <dan.b@ionic.io> (http://ionic.io)",
+  "author": "Ionic Team <hi@ionic.io> (http://ionic.io)",
   "license": "MIT",
   "devDependencies": {
-    "@danbucholtz/rollup-commonjs-unambiguous-fork": "0.0.2",
     "@types/fs-extra": "0.0.31",
     "@types/inquirer": "0.0.28",
     "@types/jasmine": "2.2.33",
@@ -27,10 +26,8 @@
     "lodash-es": "4.15.0",
     "param-case": "2.1.0",
     "proxyquire": "1.7.10",
-    "rollup": "0.35.9",
-    "rollup-plugin-node-resolve": "2.0.0",
     "typescript": "2.0.2",
     "vinyl-fs": "2.4.3",
-    "webpack": "^2.1.0-beta.22"
+    "webpack": "2.1.0-beta.22"
   }
 }
