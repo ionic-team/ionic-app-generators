@@ -1,4 +1,4 @@
-import * as colors from 'colors';
+import * as chalk from 'chalk';
 
 import { Generator } from './generator';
 import { GeneratorOptions } from './generator-options';
@@ -8,13 +8,13 @@ import { TABS_TYPE } from './utils';
 
 
 export function printAvailableGenerators() {
-  console.log(('Available generators:'as any).blue);
-  console.log((' *' as any).blue, 'Component');
-  console.log((' *' as any).blue, 'Directive');
-  console.log((' *' as any).blue, 'Page');
-  console.log((' *' as any).blue, 'Pipe');
-  console.log((' *' as any).blue, 'Provider');
-  console.log((' *' as any).blue, 'Tabs');
+  console.log(chalk.blue('Available generators:'as any));
+  console.log(chalk.blue(' *' as any), 'Component');
+  console.log(chalk.blue(' *' as any), 'Directive');
+  console.log(chalk.blue(' *' as any), 'Page');
+  console.log(chalk.blue(' *' as any), 'Pipe');
+  console.log(chalk.blue(' *' as any), 'Provider');
+  console.log(chalk.blue(' *' as any), 'Tabs');
 }
 
 export function generate(options: GeneratorOptions, projectStructureOptions: ProjectStructureOptions): Promise<any>{
