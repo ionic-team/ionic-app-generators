@@ -118,7 +118,7 @@ export class TabGenerator extends Generator {
   createTabImports(tabs: string[]) {
     let importString = '';
     for (let i = 0; i < tabs.length; i++) {
-      importString = `${importString}import { ${stringToClassCase(tabs[i])} } from '../${kebabCase(tabs[i])}/${kebabCase(tabs[i])}'`
+      importString = `${importString}import { ${stringToClassCase(tabs[i])}Page } from '../${kebabCase(tabs[i])}/${kebabCase(tabs[i])}';`
       if (i !== tabs.length - 1) {
         // add a newline character
         importString = `${importString}\n`;
@@ -130,7 +130,7 @@ export class TabGenerator extends Generator {
   createTabVariables(tabs: string[]) {
     let tabVariableString = '';
     for (let i = 0; i < tabs.length; i++) {
-      tabVariableString = `${tabVariableString}  tab${i + 1}Root: any = ${stringToClassCase(tabs[i])};`
+      tabVariableString = `${tabVariableString}  tab${i + 1}Root: any = ${stringToClassCase(tabs[i])}Page;`
       if (i !== tabs.length - 1) {
         // add a newline character
         tabVariableString = `${tabVariableString}\n`;
