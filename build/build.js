@@ -6,8 +6,8 @@ function clean() {
 }
 
 function deleteCompiled() {
-  var del = require('del');
-  del.sync('dist/compiled');
+  // var del = require('del');
+  // del.sync('dist/compiled');
 }
 
 function runTsc(testBuild) {
@@ -80,6 +80,11 @@ function bundle() {
     });
 }
 
+function copyTypeDefinitions() {
+  var destinationBase = './dist/ionic-generators';
+  return copyFiles('./dist/compiled/*.d.ts', destinationBase);
+}
+
 function copyTemplates(isTestBuild) {
   var destinationBase = './dist/ionic-generators';
   if (isTestBuild) {
@@ -120,6 +125,8 @@ function doBuild(isTestBuild) {
     return copyTemplates(isTestBuild);
   }).then(function() {
     return copyPackageJsonTemplate();
+  }).then(function() {
+    return copyTypeDefinitions();
   }).then(function() {
     if (!isTestBuild) {
       return deleteCompiled();
