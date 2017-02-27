@@ -18,6 +18,7 @@ export function printAvailableGenerators() {
 }
 
 export function generate(options: GeneratorOptions, projectStructureOptions: ProjectStructureOptions): Promise<any>{
+  options.generatorType = options.generatorType.toLowerCase();
   const error = validateOptions(options, projectStructureOptions);
   if (error) {
     return Promise.reject(error);
