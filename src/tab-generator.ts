@@ -118,7 +118,7 @@ export class TabGenerator extends Generator {
   createTabImports(tabs: string[]) {
     let importString = '';
     for (let i = 0; i < tabs.length; i++) {
-      importString = `${importString}import { ${stringToClassCase(tabs[i])} } from '../${kebabCase(tabs[i])}/${kebabCase(tabs[i])}'`
+      importString = `${importString}import { ${stringToClassCase(tabs[i])} } from '../${kebabCase(tabs[i])}/${kebabCase(tabs[i])}';`
       if (i !== tabs.length - 1) {
         // add a newline character
         importString = `${importString}\n`;
